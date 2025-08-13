@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Golden cube - Premium Design Studio</title>
+    <link href="golden_cube_actual.png" rel="icon" type="image/png" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script crossorigin="anonymous"
+        integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw=="
+        referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            gsap.from("#home", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.3,
+                ease: "power2.out"
+            });
+
+            gsap.from(".gallery-item", {
+                opacity: 0,
+                y: 50,
+                rotation: 5,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power2.out"
+            });
+
+            function handleScrollAnimation() {
+                // const images = document.querySelectorAll('.scroll-animate');
+                // images.forEach(img => {
+                //     const rect = img.getBoundingClientRect();
+                //     if (rect.top < window.innerHeight - 50) {
+                //         img.classList.add('visible');
+                //     }
+                // });
+                //             const images = document.querySelectorAll('.scroll-animate');
+
+                //   const observer = new IntersectionObserver(entries => {
+                //     entries.forEach((entry, index) => {
+                //       if (entry.isIntersecting) {
+                //         // Add a delay based on the image's index
+                //         setTimeout(() => {
+                //           entry.target.classList.add('visible');
+                //         }, index * 150); // staggered delay
+                //       }
+                //     });
+                //   }, {
+                //     threshold: 0.1
+                //   });
+
+                //   images.forEach(img => {
+                //     observer.observe(img);
+                //   });
+                const images = document.querySelectorAll('.scroll-animate');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            // Add class when image enters viewport
+                            entry.target.classList.add('visible');
+                        } else {
+                            // Remove class when image leaves viewport
+                            entry.target.classList.remove('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.2 // Trigger when 20% of the image is visible
+                });
+
+                images.forEach((img) => observer.observe(img));
+            }
+
+            window.addEventListener('scroll', handleScrollAnimation);
+            handleScrollAnimation();
+
+            // Modal functionality
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const closeBtn = document.querySelector(".modal .close");
+            const modalControls = document.querySelector('.modal-controls');
+
+            function openModal(img) {
+                modal.style.display = "flex";
+                modal.classList.add('show');
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+                modalControls.style.display = 'flex';
+            }
+
+            function closeModal() {
+                modal.style.display = "none";
+                modalControls.style.display = 'none';
+            }
+
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                img.addEventListener('click', () => openModal(img));
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            let currentIndex = 0;
+            const images = Array.from(document.querySelectorAll('.gallery-item img'));
+
+            function showImage(index) {
+                if (index >= 0 && index < images.length) {
+                    currentIndex = index;
+                    modalImg.src = images[currentIndex].src;
+                    modalImg.alt = images[currentIndex].alt;
+                }
+            }
+
+            images.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    showImage(index);
+                    openModal(img);
+                });
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                showImage((currentIndex - 1 + images.length) % images.length);
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                showImage((currentIndex + 1) % images.length);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === "flex") {
+                    if (e.key === 'ArrowLeft') {
+                        showImage((currentIndex - 1 + images.length) % images.length);
+                    } else if (e.key === 'ArrowRight') {
+                        showImage((currentIndex + 1) % images.length);
+                    } else if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                }
+            });
+
+        });
+
+
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Luxia';
+            src: url('fonts/Luxia-Regular.otf') format('opentype');
+        }
+
+        /* @font-face {
+  font-family: 'Luxia';
+  src: url('fonts/Luxia-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+
+        /* Adding geometric cube background for the entire webpage */
+          .home {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+         /* linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(30,30,30,0.8) 100%), */
+         /* 1st Layer: Black to dark gray gradient */
+        linear-gradient(to bottom, rgba(0,0,0,0.85) 50%, rgba(30,30,30,0.65) 70%, rgba(0,0,0,1.10) 100%),
+        
+        /* 2nd Layer: Subtle golden glow bottom */
+        radial-gradient(ellipse at bottom, rgba(214,173,96,0.15) 0%, transparent 70%),
+
+        url('./golden_cube_gallery/1.jpg') center/cover no-repeat;
+    z-index: 0;
+
+    
+}
+
+        body {
+            background:
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+                url('bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            background-blend-mode: multiply;
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 180px 180px;
+            background-repeat: repeat;
+            opacity: 0.3;
+            background-blend-mode: overlay;
+            mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8));
+            z-index: -1;
+        }
+
+        :root {
+
+            --primary-color: #000000;
+            --secondary-color: #1F1F1F;
+            --tertiary-color: #2C2C2C;
+            --accent-color: #D6AD60;
+            /* Gold gradient */
+            --highlight-color: #E5C287;
+            /* Bronze gradient */
+            --text-color: #FFFFFF;
+            --background-color: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Luxia', 'Metropolis', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: rgba(59, 47, 47, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo1 {
+            letter-spacing: 0.2em;
+            font-size: 1.8rem;
+            font-weight: bol d;
+            color: var(--highlight-color);
+            font-family: 'Luxia', sans-serif;
+        }
+
+        .navbar a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--highlight-color);
+        }
+
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+
+        .home h1 span {
+            background: linear-gradient(to bottom, var(--highlight-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 12px 24px;
+            border: 2px solid var(--highlight-color);
+            background: var(--accent-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--highlight-color);
+            color: #000;
+            box-shadow: 0px 4px 15px rgba(230, 193, 192, 0.5);
+        }
+/* 
+        .services,
+        .about {
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .services h2,
+        .about h2 {
+            font-size: 2.5rem;
+            color: var(--highlight-color);
+        }
+
+        .services p,
+        .about p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: var(--text-color);
+        } */
+
+        #about {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,
+        #111111 30%,
+        #222222 70%,
+        #0a0a0a 100%
+    );
+    color: #eee;
+    overflow: hidden;
+}
+
+/* Text Center */
+.about-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical */
+    align-items: center;     /* horizontal */
+    text-align: center;
+    z-index: 2;
+    padding: 0 5%;
+}
+
+.about-left h2 {
+    font-size: 2.8rem;
+    color: var(--highlight-color);
+    margin-bottom: 20px;
+}
+
+.about-left h2 span {
+    border-bottom: 3px solid var(--accent-color);
+  
+}
+
+.about-left p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+
+        #projects {
+    padding: 100px 10%;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,     /* Black start */
+        #191919 100%,    /* Dark gray */
+        #303030 50%    /* Lighter gray end */
+    );
+    color: #eee;
+}
+
+#projects h2 {
+    font-size: 2.5rem;
+    color: var(--highlight-color);
+}
+
+#projects p {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: var(--text-color);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px; /* Base height */
+    gap: 10px;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Different sizes */
+.gallery-item.large {
+    grid-row: span 2; /* Takes more vertical space */
+}
+
+.gallery-item.tall {
+    grid-row: span 3; /* Extra tall image */
+}
+
+
+
+        @media (max-width: 768px) {
+            .gallery {
+                column-count: 1;
+            }
+        }
+
+
+
+        /* Initial State: hidden and translated */
+        .gallery-item img.scroll-animate {
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Scroll-In Directions */
+        .gallery-item:nth-child(4n+1) img.scroll-animate {
+            transform: translateY(30px);
+            /* From bottom */
+        }
+
+        .gallery-item:nth-child(4n+2) img.scroll-animate {
+            transform: translateY(-30px);
+            /* From top */
+        }
+
+        .gallery-item:nth-child(4n+3) img.scroll-animate {
+            transform: translateX(-30px);
+            /* From left */
+        }
+
+        .gallery-item:nth-child(4n+4) img.scroll-animate {
+            transform: translateX(30px);
+            /* From right */
+        }
+
+        /* Visible State */
+        .gallery-item img.scroll-animate.visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+
+         #services {
+    padding: 100px 10%;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        #000000 0%,     /* Black start */
+         #1f1f1f 50%,    /* Dark gray */
+         #212020 100%  /* Lighter gray end */
+    );
+    color: #eee;
+}
+
+#services h2 {
+    font-size: 2.5rem;
+    color: var(--highlight-color);
+}
+
+#services p {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: var(--text-color);
+}
+
+        
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(86, 75, 70, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 5%;
+            }
+
+            .navbar {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .navbar a {
+                margin: 8px 10px;
+                font-size: 0.9rem;
+            }
+
+            .home h1 span {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .services,
+            .about,
+            .introduction {
+                padding: 60px 5%;
+            }
+
+
+
+            #contact-us {
+                padding: 60px 5%;
+            }
+
+            .contact-icons img {
+                width: 48px;
+                height: 48px;
+                margin: 10px;
+            }
+
+            .contact-info {
+                font-size: 0.95rem;
+            }
+
+            footer {
+                font-size: 0.9rem;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .home h1 span {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .contact-icons img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .contact-info p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Keyframes for fade-up animation */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Animate on load */
+        .animate-on-load {
+            opacity: 0;
+            animation: fadeUp 1s ease-out forwards;
+        }
+
+        /* Delay for staggered effect */
+        .delay-1 {
+            animation-delay: 0.7s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.7s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+
+        .title-reveal {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            color: var(--highlight-color);
+        }
+
+        .title-reveal::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #3B2F2F;
+            /* Use your theme highlight color */
+            transform: translateX(-100%);
+            animation: revealText 1.2s ease-out forwards;
+            z-index: 1;
+        }
+
+        .title-reveal span {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            opacity: 0;
+            animation: showText 0.6s ease-out 0.8s forwards;
+        }
+
+        @keyframes revealText {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes showText {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(218, 165, 32, 0.25);
+            /* Golden shade with transparency */
+            backdrop-filter: blur(20px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border: 2px solid var(--highlight-color);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 215, 0, 0.15);
+            /* subtle inner golden tint */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.2rem;
+            /* Smaller font size */
+            color: #fff;
+            background: var(--accent-color);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            /* Perfect circle */
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .modal .close:hover {
+            background: var(--highlight-color);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #fff;
+            background: var(--accent-color);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+            z-index: 1001;
+            /* Ensure on top */
+        }
+
+        .nav-arrow:hover {
+            background: var(--highlight-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-arrow.prev {
+            left: 30px;
+        }
+
+        .nav-arrow.next {
+            right: 30px;
+        }
+
+        .logo {
+            max-width: 350px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(60px);
+            animation: goldenRise 3s ease-out forwards;
+        }
+
+        @keyframes goldenRise {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+                filter: brightness(1.8) drop-shadow(0 0 50px gold) drop-shadow(0 0 30px yellow);
+            }
+
+            40% {
+                opacity: 0.8;
+                transform: translateY(20px) scale(1.05);
+                filter: brightness(2.5) drop-shadow(0 0 80px gold) drop-shadow(0 0 40px yellow);
+            }
+
+            70% {
+                opacity: 1;
+                transform: translateY(5px) scale(1.02);
+                filter: brightness(2) drop-shadow(0 0 60px goldenrod) drop-shadow(0 0 30px gold);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: none;
+                /* Original form — no extra brightness or glow */
+            }
+
+        }
+
+        /* Updated Testimonial Carousel with blurred sides */
+        .testimonial-carousel-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .testimonial {
+            flex: 0 0 100%;
+            padding: 30px 20px;
+            background-color: #4e6336;
+            color: #fff;
+            border-radius: 20px;
+            text-align: center;
+            margin: 0 10px;
+            transform: scale(0.9);
+            opacity: 0.5;
+            transition: all 0.5s ease;
+            filter: blur(2px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial.active {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 2;
+            filter: blur(0);
+        }
+
+        .testimonial h3 {
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+            color: #ffe;
+        }
+
+        .testimonial p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #f0f0f0;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.3rem;
+        }
+
+        .profile {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto 10px;
+            border: 3px solid #fff;
+        }
+
+        /* Enhanced Carousel: 3 at a time with blur for sides */
+        .testimonial-carousel-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .testimonial {
+            flex: 0 0 calc(100% / 3 - 20px);
+            padding: 30px 20px;
+            background-color: #4e6336;
+            color: #fff;
+            border-radius: 20px;
+            text-align: center;
+            opacity: 0.5;
+            filter: blur(2px);
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial.active {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .testimonial h3 {
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+            color: #ffe;
+        }
+
+        .testimonial p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #f0f0f0;
+        }
+
+        .stars {
+            color: gold;
+            font-size: 1.3rem;
+        }
+
+        .profile {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto 10px;
+            border: 3px solid #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo1">GOLDEN CUBE</div>
+        <nav class="navbar">
+            <a class="active" href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact-us">Contact</a>
+        </nav>
+    </header>
+    <section class="home" id="home">
+        <div>
+            <img alt="Golden Cube Logo" class="logo" src="png transparent gold.png"
+                style="max-width: 350px; width: 100%; height: auto; display: block; margin: 0 auto 20px auto;" />
+            <div class="animate-on-load delay-3">
+                <a class="btn" href="#services" style="font-family: 'Luxia', sans-serif;">Explore</a>
+                <a class="btn" href="#contact" style="font-family: 'Luxia', sans-serif;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+
+  <!-- Introduction Section
+<section id="about" style="padding: 0 10%; background: linear-gradient(135deg, #1f1f1f, #2c2c2c);">
+  <div style="display: flex; align-items: center; gap: 60px; flex-wrap: wrap;">
+    Left: Text -->
+    <!-- <div style="flex: 1; min-width: 300px;">
+      <h2 style="
+        font-size: 2.8rem;
+        color: var(--highlight-color);
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+      ">
+        <span style="border-bottom: 3px solid var(--accent-color); padding-bottom: 5px;">
+          About Us
+        </span>
+      </h2>
+      <p style="font-size: 1.2rem; line-height: 1.7; color: #eee;">
+        At <strong>Golden Cube</strong>, we transform imagination into elegant design.
+        From luxurious interiors to immersive digital experiences, our expert team brings
+        creativity, precision, and style into every project. Passion and perfection are at the heart
+        of everything we build.
+      </p> -->
+    <!-- </div> -->
+
+
+    <section id="about" style="position: relative; display: flex; align-items: center; height: 100vh; overflow: hidden; height: auto;">
+  
+  <!-- Background Image -->
+   <div style="width: 100%; height: 500px; position: relative;">
+  <img src="./golden_cube_gallery/15.jpg" 
+       alt="About Golden Cube" 
+       style="position: absolute; top: 0; left: 30%; width: 70%; height: 100%; object-fit: cover; border-radius: 12px;
+              box-shadow: 0 0 25px rgba(214, 173, 96, 0.3);
+              filter: brightness(0.99) blur(1px);
+              opacity: 0.95; mix-blend-mode: multiply;" />
+  </div>
+  <!-- Text Overlay -->
+   <div style="position: absolute; top: 30%; left: 30%; transform: translateY(-50%); color: #eee; z-index: 2;">
+
+    <h2 style="font-size: 2.8rem; color: var(--highlight-color); margin-bottom: 20px;">
+      <span style="border-bottom: 3px solid var(--accent-color); padding-bottom: 5px;">About Us</span>
+    </h2>
+    <p style="font-size: 1.2rem; line-height: 1.7;">
+      At <strong>Golden Cube</strong>, we transform imagination into elegant design.
+      From luxurious interiors to immersive digital experiences, our expert team brings
+      creativity, precision, and style into every project. Passion and perfection are at the heart
+      of everything we build.
+    </p>
+  </div>
+  
+</section>
+
+
+
+    <section class="projects" id="projects">
+        <h2>Projects</h2>
+        <p>Golden cube is a premium design studio specializing in interior and digital design, creating bespoke
+            solutions tailored to your vision.</p>
+    </section>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img alt="Project 1" class="scroll-animate" src="./golden_cube_gallery/1.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 2" class="scroll-animate" src="./golden_cube_gallery/2.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 3" class="scroll-animate" src="./golden_cube_gallery/3.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 4" class="scroll-animate" src="./golden_cube_gallery/4.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 5" class="scroll-animate" src="./golden_cube_gallery/5.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 6" class="scroll-animate" src="./golden_cube_gallery/6.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 7" class="scroll-animate" src="./golden_cube_gallery/7.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 8" class="scroll-animate" src="./golden_cube_gallery/8.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 9" class="scroll-animate" src="./golden_cube_gallery/9.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 10" class="scroll-animate" src="./golden_cube_gallery/10.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 11" class="scroll-animate" src="./golden_cube_gallery/11.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 12" class="scroll-animate" src="./golden_cube_gallery/12.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 13" class="scroll-animate" src="./golden_cube_gallery/13.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 14" class="scroll-animate" src="./golden_cube_gallery/14.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 15" class="scroll-animate" src="./golden_cube_gallery/15.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 16" class="scroll-animate" src="./golden_cube_gallery/16.jpg" />
+        </div>
+        <div class="gallery-item">
+            <img alt="Project 17" class="scroll-animate" src="./golden_cube_gallery/17.jpg" />
+        </div>
+    </div>
+    <div class="modal" id="imageModal">
+        <span class="close">×</span>
+        <span class="nav-arrow prev" id="prevBtn">❮</span> <!-- ‹ Prev Arrow -->
+        <img class="modal-content" id="modalImage" />
+        <span class="nav-arrow next" id="nextBtn">❯</span> <!-- › Next Arrow -->
+    </div>
+
+
+<!-- <section id="services" style="padding: 10; background: linear-gradient(135deg, #1f1f1f, #2c2c2c);">
+  <div style="display: flex; align-items: stretch;">
+
+    
+
+    Right: Text
+    <div style="width: 50%; padding: 60px;">
+      <h2 style="font-size: 2.8rem; color: var(--highlight-color); margin-bottom: 20px;">
+        <span style="border-bottom: 3px solid var(--accent-color); padding-bottom: 5px;">
+          Services
+        </span>
+      </h2>
+      <p style="font-size: 1.2rem; line-height: 1.7; color: #eee;">
+        Welcome to Golden cube – where imagination meets design excellence. Our studio is fueled by passion,
+        creativity, and a commitment to transforming ordinary spaces into stunning experiences.
+        From concept to completion, our focus remains on innovation, detail, and client satisfaction.
+      </p>
+    </div>
+
+    
+  </div> -->
+<!-- </section> -->
+
+
+    <section class="services" id="services">
+        <h2>Services</h2>
+        <p>        Welcome to Golden cube – where imagination meets design excellence. Our studio is fueled by passion,
+        creativity, and a commitment to transforming ordinary spaces into stunning experiences.
+        From concept to completion, our focus remains on innovation, detail, and client satisfaction..</p>
+    </section>
+
+
+
+
+
+
+    <section class="testimonial-section" id="client-feedback" style="padding: 100px 10%; text-align: center;   padding: 100px 10%;
+    text-align: center;
+    background: linear-gradient(
+        to bottom,
+        #222222 0%,     /* Black start */
+        #121212 50%,    /* Dark gray */
+        #000000 100%    /* Lighter gray end */
+    );
+    color: #eee;">
+        <h2 style="font-size: 2.5rem; color: var(--highlight-color); margin-bottom: 40px;">Client Feedback</h2>
+        <div class="testimonial-carousel-container">
+            <div class="testimonial-carousel" id="testimonial-carousel">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <h3>Henrietta Mitchell</h3>
+                    <p>I recently purchased a stunning midi dress from your collection and I couldn't be happier! The
+                        attention to detail is impeccable.</p>
+                    <img alt="Henrietta" class="profile" src="https://randomuser.me/api/portraits/women/44.jpg" />
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <h3>James Patel</h3>
+                    <p>The quality and craftsmanship are unmatched. I received compliments all day. Thank you for such
+                        amazing service.</p>
+                    <img alt="James" class="profile" src="https://randomuser.me/api/portraits/men/32.jpg" />
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★☆</div>
+                    <h3>Aarushi Sinha</h3>
+                    <p>Very good designs, timely delivery, and a professional team. One of the best experiences I’ve had
+                        online.</p>
+                    <img alt="Aarushi" class="profile" src="https://randomuser.me/api/portraits/women/68.jpg" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact-us" style="padding: 100px 10%; text-align: center;">
+        <h2 style="font-size: 2.5rem; color: var(--highlight-color);">Contact us</h2>
+        <p style="font-size: 1.2rem; margin-top: 20px; color: var(--text-color);">
+        <div class="contact-icons" style="margin-bottom: 25px;">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/91XXXXXXXXXX" target="_blank" title="Chat on WhatsApp">
+                <img alt="WhatsApp" src="https://img.icons8.com/color/64/000000/whatsapp--v1.png"
+                    style="margin: 0 15px;" />
+            </a>
+            <!-- Email -->
+            <a href="mailto:youremail@example.com" title="Send Email">
+                <img alt="Email" src="https://img.icons8.com/color/64/000000/email.png" style="margin: 0 15px;" />
+            </a>
+            <!-- Pinterest -->
+            <a href="https://www.pinterest.com/yourprofile" target="_blank" title="View Pinterest">
+                <img alt="Pinterest" src="https://img.icons8.com/color/64/000000/pinterest--v1.png"
+                    style="margin: 0 15px;" />
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/yourprofile" target="_blank" title="Visit Instagram">
+                <img alt="Instagram" src="https://img.icons8.com/color/64/000000/instagram-new--v1.png"
+                    style="margin: 0 15px;" />
+            </a>
+        </div>
+        <div class="contact-info" style="text-align: center;">
+            <p><strong>Contact Number:</strong> +91-XXXXXXXXXX</p>
+            <p><strong>Email:</strong> <a href="mailto:youremail@example.com"
+                    style="color: #007bff;">youremail@example.com</a></p>
+        </div>
+        </p>
+    </section>
+    <footer class="footer">
+        <p>© 2025 Golden cube | All Rights Reserved</p>
+    </footer>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.gallery');
+    const items = Array.from(gallery.children);
+
+    // Select group (1–6 or 7–12) alternate refresh
+    let groupFlag = localStorage.getItem('shuffleGroup') || 'group1';
+    const currentGroup = groupFlag === 'group1' ? [0, 1, 2, 3, 4, 5] : [6, 7, 8, 9, 10, 11];
+    localStorage.setItem('shuffleGroup', groupFlag === 'group1' ? 'group2' : 'group1');
+
+    // Extract only target group
+    let targetGroup = currentGroup.map(i => items[i]);
+
+    // Shuffle
+    for (let i = targetGroup.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [targetGroup[i], targetGroup[j]] = [targetGroup[j], targetGroup[i]];
+    }
+
+    // Arrange pattern
+    let arranged = [];
+
+    // First element large (corner)
+    targetGroup[0].classList.add('large');
+    arranged.push(targetGroup[0]);
+
+    // Next 2 small
+    arranged.push(targetGroup[1], targetGroup[2]);
+
+    // Next 2 small below
+    arranged.push(targetGroup[3], targetGroup[4]);
+
+    // Show only these (ignore extra)
+    gallery.innerHTML = '';
+    arranged.forEach(item => gallery.appendChild(item));
+});
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('testimonial-carousel');
+            const testimonials = Array.from(carousel.querySelectorAll('.testimonial'));
+            const itemsPerView = 3;
+            let index = 0;
+
+            function updateCarousel() {
+                const totalItems = testimonials.length;
+                const visibleIndex = (index + 1) % totalItems;
+                const offset = (100 / itemsPerView) * index;
+                carousel.style.transform = `translateX(-${offset}%)`;
+
+                testimonials.forEach((item, i) => {
+                    item.classList.remove('active');
+                });
+
+                if (testimonials[visibleIndex]) {
+                    testimonials[visibleIndex].classList.add('active');
+                }
+            }
+
+            function autoSlide() {
+                index = (index + 1) % testimonials.length;
+                updateCarousel();
+            }
+
+            let interval = setInterval(autoSlide, 3000);
+
+            carousel.addEventListener('mouseenter', () => clearInterval(interval));
+            carousel.addEventListener('mouseleave', () => interval = setInterval(autoSlide, 3000));
+
+            testimonials.forEach((item, i) => {
+                item.addEventListener('click', () => {
+                    index = Math.max(0, Math.min(i - 1, testimonials.length - itemsPerView));
+                    updateCarousel();
+                });
+            });
+
+            updateCarousel();
+        });
+    </script>
+
+</body>
+
+</html>
