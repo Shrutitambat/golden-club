@@ -152,17 +152,21 @@
 
     </script>
     <style>
-        /* @font-face {
-            font-family: 'Luxia';
-            src: url('fonts/Luxia-Regular.otf') format('opentype');
-        } */
+@font-face {
+  font-family: 'Metropolis';
+  src: url('fonts/Metropolis-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-        @font-face {
+@font-face {
   font-family: 'Luxia';
   src: url('fonts/Luxia-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
+
+
 
 
 
@@ -209,6 +213,7 @@
             color: var(--text-color);
             overflow-x: hidden;
             position: relative;
+             font-family: 'Metropolis', sans-serif;
         }
 
 
@@ -241,12 +246,13 @@
             --background-color: #000000;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Luxia', sans-serif;
-        }
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Metropolis', sans-serif; */
+}
+
 
         body {
             background-color: var(--background-color);
@@ -1148,9 +1154,18 @@ h1, h2, h3 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: metallicShine 4s linear infinite;
-    font-family:  'Luxia', sans-serif;
 
 
+}
+
+/* Headings use Luxia */
+h1, h2, h3,
+#about h2,
+#projects h2,
+#services h2,
+#client-feedback h2,
+#contact-us h2 {
+    font-family: 'Luxia', sans-serif !important;
 }
 
 @keyframes metallicShine {
@@ -1222,9 +1237,10 @@ h1, h2, h3 {
   <!-- Text Overlay -->
    <div style="position: absolute; left: 25%; top: 50%; transform: translateY(-50%); color: #eee; z-index: 2; max-width: 600px;">
 
-  <h2 style="font-size: 2.8rem; color: var(--highlight-color); margin-bottom: 20px; text-align: left;">
-    <span>About Us</span>
-  </h2>
+  <h2 style="font-family:'Luxia', sans-serif; font-size: 2.8rem; color: var(--highlight-color); margin-bottom: 20px; text-align: left;">
+  <span>About Us</span>
+</h2>
+
 
   <p style="font-size: 1.2rem; line-height: 1.7; text-align: left;">
     At <strong>Golden Cube</strong>, we transform imagination into elegant design.
